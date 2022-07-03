@@ -1,0 +1,31 @@
+@use "src/scss/global";
+
+$btnBackground:                     darken(global.$white, 10%);
+$btnBackgroundHighlight:            darken(global.$white, 10%);
+$btnBorder:                         #bbb;
+
+$btnPrimaryBackground:              global.$linkColor;
+$btnPrimaryBackgroundHighlight:     global.$linkColor;
+
+$btnInfoBackground:                 #00ffff;
+$btnInfoBackgroundHighlight:        $btnInfoBackground;
+
+$btnSuccessBackground:              #00ff00;
+$btnSuccessBackgroundHighlight:     $btnSuccessBackground;
+
+$btnWarningBackground:              global.$orange;
+$btnWarningBackgroundHighlight:     global.$orange;
+
+$btnDangerBackground:               #ff0000;
+$btnDangerBackgroundHighlight:      $btnDangerBackground;
+
+$btnInverseBackground:              black;
+$btnInverseBackgroundHighlight:     black;
+
+.btn {
+  border: 6px ridge $btnBorder;
+}
+
+.btn-primary {
+  background: #000 global.$imgRainbow top left;
+}
