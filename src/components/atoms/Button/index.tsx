@@ -1,19 +1,20 @@
 import React from "react";
 import styles from "./index.module.scss";
 
-export type ButtonType =
-  | "primary"
-  | "secondary"
-  | "success"
-  | "danger"
-  | "warning"
-  | "info"
-  | "light"
-  | "dark";
+export enum ButtonType {
+  primary,
+  success,
+  danger,
+  warning,
+  info,
+  light,
+  dark,
+}
 
 export interface ButtonProps {
   element: "button" | "a";
   type?: ButtonType;
+  href?: string;
   children: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
@@ -21,16 +22,14 @@ export interface ButtonProps {
 }
 
 export const Button = (props: ButtonProps) => {
-  const { element, type, children, onClick, disabled, className } = props;
-
-  // const styles: any = { btn: "btn", btnPrimary: "btn-primary" };
+  const { element, type, href, children, onClick, disabled, className } = props;
 
   const classes = [styles.btn];
-  if (type) {
-    console.log(`btn${capitalizeFirstLetter(type)}`);
-    console.log(styles[`btn${capitalizeFirstLetter(type)}`]);
-    classes.push(styles[`btn${capitalizeFirstLetter(type)}`]);
+  const typeClass = getClassForType(type);
+  if (typeClass) {
+    classes.push(typeClass);
   }
+
   if (className) {
     classes.push(className);
   }
@@ -42,6 +41,7 @@ export const Button = (props: ButtonProps) => {
       className={classes.join(" ")}
       onClick={onClick}
       disabled={disabled}
+      href={href}
     >
       {children}
     </Component>
@@ -50,4 +50,25 @@ export const Button = (props: ButtonProps) => {
 
 const capitalizeFirstLetter = (a: string) => {
   return a.charAt(0).toUpperCase() + a.slice(1);
+};
+
+const getClassForType = (type: ButtonType | undefined) => {
+  switch (type) {
+    case ButtonType.primary:
+      return styles["btn-primary"];
+    case ButtonType.success:
+      return styles["btn-success"];
+    case ButtonType.danger:
+      return styles["btn-danger"];
+    case ButtonType.warning:
+      return styles["btn-warning"];
+    case ButtonType.info:
+      return styles["btn-info"];
+    case ButtonType.light:
+      return styles["btn-light"];
+    case ButtonType.dark:
+      return styles["btn-dark"];
+    default:
+      return null;
+  }
 };

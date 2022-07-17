@@ -1,57 +1,23 @@
-// const path = require("path");
-//
-// module.exports = {
-//   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-//   addons: [
-//     "@storybook/addon-links",
-//     "@storybook/addon-essentials",
-//     "@storybook/addon-interactions",
-//     "@storybook/preset-create-react-app",
-//     {
-//       name: "@storybook/preset-scss",
-//       options: {
-//         cssLoaderOptions: {
-//           modules: { localIdentName: "[name]__[local]--[hash:base64:5]" },
-//         },
-//       },
-//     },
-//   ],
-//   framework: "@storybook/react",
-//   core: {
-//     disableTelemetry: true,
-//     builder: "@storybook/builder-webpack5",
-//   },
-// };
 module.exports = {
-  stories: [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)",
-    "../src/core/components/**/*.stories.@(js|jsx|ts|tsx)",
-  ],
+  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  core: {
+    disableTelemetry: true,
+  },
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/preset-create-react-app",
-    "@storybook/preset-ant-design",
-  ],
-  framework: "@storybook/react",
-  core: {
-    builder: "@storybook/builder-webpack5",
-    webpackFinal: async (config, { configType }) => {
-      // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
-      // You can change the configuration based on that.
-      // 'PRODUCTION' is used when building the static version of storybook.
-
-      // Make whatever fine-grained changes you need
-      config.module.rules.push({
-        test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
-        include: path.resolve(__dirname, "../"),
-      });
-
-      // Return the altered config
-      return config;
+    "@storybook/preset-scss",
+    {
+      name: "@storybook/addon-postcss",
+      options: {
+        cssLoaderOptions: {
+          modules: true,
+        },
+        postcssLoaderOptions: {
+          // Use postcss 8
+          implementation: require("postcss"),
+        },
+      },
     },
-  },
+  ],
 };

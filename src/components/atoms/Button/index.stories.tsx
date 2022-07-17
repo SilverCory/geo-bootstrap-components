@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 
-import { Button, ButtonProps } from ".";
+import { Button, ButtonProps, ButtonType } from ".";
 
 export default {
   title: "Atoms/Button",
@@ -15,6 +15,16 @@ export default {
         { name: "black", value: "#000000" },
       ],
     },
+    argTypes: {
+      type: {
+        options: Object.values(ButtonType),
+        mapping: ButtonType,
+        control: {
+          type: "select",
+          labels: Object.keys(ButtonType),
+        },
+      },
+    },
   },
 } as Meta;
 
@@ -23,7 +33,7 @@ const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   element: "button",
-  type: "primary",
+  type: ButtonType.primary,
   children: "Primary",
   onClick: () => {},
   disabled: false,
@@ -33,7 +43,7 @@ Primary.args = {
 export const Secondary = Template.bind({});
 Secondary.args = {
   element: "button",
-  type: "secondary",
+  type: ButtonType.info,
   children: "Secondary",
   onClick: () => {},
   disabled: false,
